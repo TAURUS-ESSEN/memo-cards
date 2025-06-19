@@ -185,7 +185,7 @@ button {
   }
   
   .wrapper {
-    width: 768px;
+    max-width: 768px;
   }
 
   .all-cards { 
@@ -199,16 +199,11 @@ button {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-      /* max-width: 150px; */
-    /* max-height: 150px; */
   }
 
   .card img{ 
     max-width: 70%;
     height: 100%;
-
-    /* max-width: 150px; */
-    /* max-height: 150px; */
   }
 
   .gameRules {
@@ -226,7 +221,7 @@ button {
   }
   
   .wrapper {
-    width: 375px;
+    max-width: 375px;
   }
 
     .gameRules {
