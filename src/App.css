@@ -1,0 +1,140 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+@font-face {
+  font-family: Oxanium;
+  src: url('./assets/fonts/Oxanium-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+
+body {
+  background: url('./assets/diagonal-noise.webp');
+  font-family: Oxanium;
+    width: 100vw; /* а не 100% */
+  overflow-x: hidden;
+}
+
+button {
+  font-family: Oxanium;
+}
+  
+.all-cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin: 0 auto; */
+  gap: 2em;
+  height: 50vh;
+}
+
+.button-dificulty {
+  padding: 0.5em;
+  min-width: 100px;
+  min-height: 44px;
+  font-weight: 700;
+  border: 2px solid rgb(248, 248, 248);
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: black;
+  color:white;
+  /* background: url('./assets/binding_light.png'); */
+  background-size: cover;
+  transition: 0.5s;
+  box-shadow: 0 0 5px rgb(120, 120, 120);
+
+}
+
+.button-dificulty:hover {
+  transform: scale(1.1);
+   box-shadow: 0 0 5px rgb(2, 84, 235);
+}
+
+.card {
+  max-width: 220px;
+  padding: 0.2em;
+  border: 1px solid gray;
+  border-radius: 10px;
+  background-color: white;
+  cursor: pointer;
+  transition: 0.5s;
+    filter: grayscale(100%);
+  box-shadow: 0 0 5px rgb(109, 108, 108);
+}
+
+.card:hover {
+  transform: scale(1.1);
+    box-shadow: 0 0 5px rgb(2, 84, 235);
+      filter: grayscale(50%);
+
+}
+
+.card img{
+  width: 100%;
+
+}
+
+.card-name {
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+}
+
+.debug {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  left: 20%;
+  max-width: 600px ;
+  background-color: rgba(195, 195, 190, 0.436);
+  font-size: 0.8em;
+  margin: 1em auto;
+  padding: 0.4em;
+}
+
+.debug p {
+  padding: 0;
+  margin: 0;
+}
+
+.setDificultyBlock {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* background-color: rgba(77, 194, 155, 0.485); */
+  padding: 1em;
+}
+
+.setDificultyBlock img {
+  width: 340px;
+  display: block;
+}
+
+.bestScore {
+  position: absolute;
+  top:2vh;
+  right: 5vh;
+}
+
+.gameRules {
+  text-align: left;
+  font-size: 1em;
+  background-color: rgba(216, 216, 216, 0.834);
+  padding: 1em;
+  border-radius: 10px;
+  margin-top: 1em;
+  width: 300px;
+}
