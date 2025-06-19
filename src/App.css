@@ -214,7 +214,7 @@ button {
   }
 
   .gameRules {
-    position: relative;
+    position: absolute;
     padding: 0.5em;
     margin: 0;
     top:2em;
