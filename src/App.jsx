@@ -14,7 +14,6 @@ function App() {
 
   const [turn, setTurn] = useState(0);
   // const [gameEnded, setGameEnded] = useState(false);
-  const lastRound = {difficulty}
   const [showBlocks, setShowBlocks] = useState({ 
     showCardsBlock: 0,
     showDifficultyBlock: 1,
@@ -137,12 +136,10 @@ function App() {
 
   function addSelectedCard(value) { 
     const isGameOver = checkEndGame(value)
-    // checkEndGame(value);
     const copy1 = [...availableCards];
     const copy2 = [...selectedCards];
     copy2[value] = copy1[value];
     copy1[value] = '';
-    // setTurn(turn+1)
     setAvailableCards(copy1);
     setSelectedCards(copy2);
     if (turn < difficulty && !isGameOver)  {

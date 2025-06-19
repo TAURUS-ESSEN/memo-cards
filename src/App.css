@@ -12,10 +12,10 @@
 }
 
 body {
-  background: url('./assets/diagonal-noise.webp');
-  font-family: Oxanium;
   width: 100vw; /* а не 100% */
+  font-family: Oxanium;
   overflow-x: hidden;
+  background: url('./assets/diagonal-noise.webp');
 }
 
 button {
@@ -35,28 +35,22 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 2em;
-  /* margin: 0 auto; */
   gap: 2em;
-  /* height: 50vh; */
+  margin: 2em;
 }
 
 .button-difficulty {
-  padding: 0.5em;
   min-width: 100px;
   min-height: 44px;
+  padding: 0.5em;
   font-weight: 700;
   border: 2px solid rgb(248, 248, 248);
   border-radius: 5px;
   cursor: pointer;
-  background-color: black;
   color:white;
-  /* background: url('./assets/binding_light.png'); */
-  background-size: cover;
+  background-color: black;
   transition: 0.5s;
-  /* box-shadow: 0 0 5px rgb(120, 120, 120); */
   box-shadow: 0 0 5px rgb(120, 120, 120);
-
 }
 
 .button-difficulty:hover {
@@ -72,14 +66,12 @@ button {
   background-color: white;
   cursor: pointer;
   transition: 0.5s;
-    /* filter: grayscale(100%); */
   box-shadow: 0 0 5px rgb(109, 108, 108);
 }
 
 .card:hover {
   transform: scale(1.1);
   box-shadow: 0 0 5px rgb(2, 84, 235);
-  /* filter: grayscale(50%); */
 }
 
 .card img{
@@ -97,33 +89,12 @@ button {
   gap: 1em;
 }
 
-.debug {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  bottom: 0;
-  left: 20%;
-  max-width: 600px ;
-  background-color: rgba(195, 195, 190, 0.436);
-  font-size: 0.8em;
-  margin: 1em auto;
-  padding: 0.4em;
-}
-
-.debug p {
-  padding: 0;
-  margin: 0;
-}
-
 .setDifficultyBlock {
   display: flex;
   width: 100%;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* background-color: rgba(77, 194, 155, 0.485); */
   padding: 1em;
 }
 
@@ -136,22 +107,30 @@ button {
   position: absolute;
   top:2vh;
   right: 5vh;
+  font-weight: 600;
 }
 
 .gameRules {
-  text-align: left;
-  font-size: 1em;
-  background-color: rgba(216, 216, 216, 0.636);
-  padding: 1em;
-  border-radius: 10px;
-  margin-top: 3em;
   max-width: 400px;
-  cursor: pointer;
+  padding: 1em;
   position: absolute;
   top: 0;
   left: 0;
+  text-align: left;
+  font-size: 1em;
+  background-color: rgba(216, 216, 216, 0.636);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.5s;
 }
 
+summary {
+  transition: 0.5s ease-in;
+}
+
+summary:hover {
+  color:rgb(0, 26, 255);
+}
 
 .game-win, .game-lose {
   text-align: center;
@@ -240,4 +219,25 @@ button {
      top:2em;
     left: 0;
   }
+}
+
+
+.debug {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  left: 20%;
+  max-width: 600px ;
+  background-color: rgba(195, 195, 190, 0.436);
+  font-size: 0.8em;
+  margin: 1em auto;
+  padding: 0.4em;
+}
+
+.debug p {
+  padding: 0;
+  margin: 0;
 }
