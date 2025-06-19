@@ -14,7 +14,7 @@
 body {
   background: url('./assets/diagonal-noise.webp');
   font-family: Oxanium;
-    width: 100vw; /* а не 100% */
+  width: 100vw; /* а не 100% */
   overflow-x: hidden;
 }
 
@@ -35,6 +35,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 2em;
   /* margin: 0 auto; */
   gap: 2em;
   /* height: 50vh; */
@@ -60,7 +61,7 @@ button {
 
 .button-difficulty:hover {
   transform: scale(1.1);
-   box-shadow: 0 0 5px rgb(2, 84, 235);
+  box-shadow: 0 0 5px rgb(2, 84, 235);
 }
 
 .card {
@@ -77,14 +78,12 @@ button {
 
 .card:hover {
   transform: scale(1.1);
-    box-shadow: 0 0 5px rgb(2, 84, 235);
-      /* filter: grayscale(50%); */
-
+  box-shadow: 0 0 5px rgb(2, 84, 235);
+  /* filter: grayscale(50%); */
 }
 
 .card img{
   width: 100%;
-
 }
 
 .card-name {
@@ -148,6 +147,8 @@ button {
   margin-top: 3em;
   width: 400px;
   cursor: pointer;
+  position: absolute;
+  bottom: 0;
 }
 
 
@@ -175,4 +176,55 @@ button {
 @keyframes disappear {
   from { opacity: 1; transform: scale(1); }
   to { opacity: 0; transform: scale(0.3); }
+}
+
+@media (max-width: 768px) { 
+  #root {
+    max-width: 768px;
+    padding: 0.5rem;
+  }
+  
+  .wrapper {
+    width: 768px;
+  }
+
+  .all-cards { 
+    flex-wrap: wrap;
+    margin: 0.5em;
+  }
+
+  .card {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+      /* max-width: 150px; */
+    /* max-height: 150px; */
+  }
+
+  .card img{ 
+    max-width: 70%;
+    height: 100%;
+
+    /* max-width: 150px; */
+    /* max-height: 150px; */
+  }
+
+  .gameRules {
+    position: relative;
+    margin: 0;
+  }
+}
+
+@media (max-width: 375px) { 
+  #root {
+    max-width: 375px;
+    padding: 0.5rem;
+  }
+  
+  .wrapper {
+    width: 375px;
+  }
+
 }
