@@ -157,7 +157,7 @@ button {
 }
 
 .game-win img, .game-lose img {
-  width: 300px;
+  max-width: 300px;
 }
 
 .card.animate {
