@@ -196,12 +196,17 @@ button {
   }
 
   .card {
-    width: 45%;
+    width: 44%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
+
+  .card-name {
+    font-size: 1.2em;
+    font-weight: 600;
+}
 
   .card img{ 
     max-width: 85%;
