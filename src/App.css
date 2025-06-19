@@ -212,7 +212,7 @@ button {
   }
 
   .gameRules {
-    position: absolute;
+    position: relative;
     margin: 0;
     top:0;
     left: 0;
@@ -229,4 +229,10 @@ button {
     width: 375px;
   }
 
+    .gameRules {
+    position: relative;
+    margin: 0;
+    top:0;
+    left: 0;
+  }
 }
