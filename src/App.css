@@ -21,17 +21,26 @@ body {
 button {
   font-family: Oxanium;
 }
-  
+
+.wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .all-cards {
   display: flex;
   justify-content: center;
   align-items: center;
   /* margin: 0 auto; */
   gap: 2em;
-  height: 50vh;
+  /* height: 50vh; */
 }
 
-.button-dificulty {
+.button-difficulty {
   padding: 0.5em;
   min-width: 100px;
   min-height: 44px;
@@ -48,27 +57,27 @@ button {
 
 }
 
-.button-dificulty:hover {
+.button-difficulty:hover {
   transform: scale(1.1);
    box-shadow: 0 0 5px rgb(2, 84, 235);
 }
 
 .card {
-  max-width: 220px;
+  width: 100%;
   padding: 0.2em;
   border: 1px solid gray;
   border-radius: 10px;
   background-color: white;
   cursor: pointer;
   transition: 0.5s;
-    filter: grayscale(100%);
+    /* filter: grayscale(100%); */
   box-shadow: 0 0 5px rgb(109, 108, 108);
 }
 
 .card:hover {
   transform: scale(1.1);
     box-shadow: 0 0 5px rgb(2, 84, 235);
-      filter: grayscale(50%);
+      /* filter: grayscale(50%); */
 
 }
 
@@ -108,7 +117,7 @@ button {
   margin: 0;
 }
 
-.setDificultyBlock {
+.setDifficultyBlock {
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -118,7 +127,7 @@ button {
   padding: 1em;
 }
 
-.setDificultyBlock img {
+.setDifficultyBlock img {
   width: 340px;
   display: block;
 }
@@ -137,6 +146,7 @@ button {
   border-radius: 10px;
   margin-top: 1em;
   width: 300px;
+  cursor: pointer;
 }
 
 

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useRef } from 'react';
 import './App.css'
 import SetDifficultyBlock from './components/SetDifficultyBlock.jsx';
 import ShowCards from './components/ShowCards.jsx';
@@ -12,10 +13,10 @@ function App() {
   const [availableCards, setAvailableCards] = useState([]);
   const [fourCards, setFourCards] = useState([]);
 
-  const [turn, setTurn] = useState(0); 
+  const [turn, setTurn] = useState(0); // тут раунд отмечается.
   // const [gameEnded, setGameEnded] = useState(false);
   const [showBlocks, setShowBlocks] = useState({ // показывает скрывает блоки
-    showCardsBlock: 0, 
+    showCardsBlock: 0, // по сути показать игру
     showDifficultyBlock: 1, 
     showRound:0,
     SetLose: 0,
@@ -23,6 +24,7 @@ function App() {
     showLogo:1,
   })
   
+  const firstRender = useRef(true);
   let savedRecord =  JSON.parse(localStorage.getItem('savedRecord'));
   checkLocalStorage();
 
@@ -42,8 +44,11 @@ function App() {
     saveInLocalStorage(savedRecord); 
   }
 
-  useEffect(() => { 
-    if (difficulty === 0) return; 
+  useEffect(() => { // начальная генерация массива всех карт. это работает только вначале игры. потом до конца не трогаем. одноразовыйблок
+    if (firstRender.current) {
+      firstRender.current = false;
+      return; // ⛔ ничего не делаем на первом рендере
+    }
     const tempArray = [];
     fetch('https://digimon-api.vercel.app/api/digimon')
     .then(response => response.json())
@@ -52,37 +57,33 @@ function App() {
         const obj = {name: data[i].name, img: data[i].img}
         tempArray.push(obj)
       } 
-      setAllCards(tempArray);
-      startGame(tempArray)
-    });    
+      setAllCards(tempArray.slice())
+    });  
   }, [difficulty])
 
+  useEffect(() =>  { // если сработал блок наполнения основного массива начинаем игру.
+    if (allCards.length > 0) {
+      startGame()
+    }  
+  }, [allCards]);  // потому что эта переменная изменилась запустится состояние.
 
-  function startGame(tempArray) {
-    setAvailableCards(tempArray); // делаем копию карт
+  function startGame() {
+    setAvailableCards(allCards.slice()); // делаем копию карт
     setSelectedCards(Array(difficulty).fill('')) // а будущие выбранные карты заполняем пустотой. размер одинаквый везде
     setShowBlocks({...showBlocks, showDifficultyBlock: 0, SetLose:0, SetWin:0, showLogo:0,  showRound:1, showCardsBlock: 1}); //прячем выбор сложности
     setTurn(1);
+    // choose4Cards(); // запускаем генерацию карточек
   }
-  
-  useEffect(() => {
-    if (selectedCards.length > 0) {
-      const timeout = setTimeout(() => {
-        choose4Cards();
-      }, 1000);
-      return () => clearTimeout(timeout);
-    }
-  }, [selectedCards]);
 
   useEffect(() => {
-    if (selectedCards.length > 0) {
-      console.log('проверка победы')
-      const timeout = setTimeout(() => {
-        checkEndGame();
-      }, 1000);
-      return () => clearTimeout(timeout);
-    }
-  }, [availableCards]);
+   if (selectedCards.length > 0) {
+    console.log('проверка победы')
+    const timeout = setTimeout(() => {
+      checkEndGame();
+    }, 1000);
+    return () => clearTimeout(timeout);
+  }
+}, [availableCards]);
 
   function generate4Cards() {
       const tempArray = []; // временный массив
@@ -99,6 +100,15 @@ function App() {
       return tempArray
   }
 
+  useEffect(() => {
+    
+  if (selectedCards.length > 0) {
+    const timeout = setTimeout(() => {
+      choose4Cards();
+    }, 1000);
+    return () => clearTimeout(timeout);
+    }
+  }, [selectedCards]);
 
   function choose4Cards() {
     if (turn <= difficulty) {
