@@ -6,17 +6,18 @@ import SetLose from './components/SetLose.jsx'
 import SetWin from './components/SetWin.jsx'
 
 function App() {
-  const [difficulty, setDifficulty] = useState(0)  
-  const [allCards, setAllCards] = useState([]);  
-  const [selectedCards, setSelectedCards] = useState([]);  
+  const [difficulty, setDifficulty] = useState(0);
+  const [allCards, setAllCards] = useState([]);
+  const [selectedCards, setSelectedCards] = useState([]);
   const [availableCards, setAvailableCards] = useState([]);
   const [fourCards, setFourCards] = useState([]);
 
-  const [turn, setTurn] = useState(0); 
+  const [turn, setTurn] = useState(0);
   // const [gameEnded, setGameEnded] = useState(false);
-  const [showBlocks, setShowBlocks] = useState({ // показывает скрывает блоки
-    showCardsBlock: 0, 
-    showDifficultyBlock: 1, 
+  const lastRound = {difficulty}
+  const [showBlocks, setShowBlocks] = useState({ 
+    showCardsBlock: 0,
+    showDifficultyBlock: 1,
     showRound:0,
     SetLose: 0,
     SetWin :0,
@@ -27,11 +28,11 @@ function App() {
   checkLocalStorage();
 
   function checkLocalStorage() {
-    if (savedRecord === null)  {  
+    if (savedRecord === null) {  
       savedRecord = [{lastRecord : "0"}];
       saveInLocalStorage(savedRecord);
     }
-  } 
+  }
 
   function saveInLocalStorage(savedRecord) {
     localStorage.setItem('savedRecord', JSON.stringify(savedRecord));
@@ -42,8 +43,8 @@ function App() {
     saveInLocalStorage(savedRecord); 
   }
 
-  useEffect(() => { 
-    if (difficulty === 0) return; 
+  useEffect(() => {
+    if (difficulty === 0) return;
     const tempArray = [];
     fetch('https://digimon-api.vercel.app/api/digimon')
     .then(response => response.json())
@@ -84,22 +85,6 @@ function App() {
     }
   }, [availableCards]);
 
-  function generate4Cards() {
-      const tempArray = []; // временный массив
-      for (let i = 0; i < 4; i++) { 
-        let cardIndex = Math.floor(Math.random() * allCards.length); // сгенерируем индекс случайный для отбора одной из 4х
-        if (!tempArray.includes(cardIndex)) { // тут пробуем проверить на дубликат
-          tempArray.push(cardIndex) // воткнем этот индекс во временный массив 
-        }
-        else {
-          console.log('Дубликат. перегенерация')
-          i--;
-        }
-      }
-      return tempArray
-  }
-
-
   function choose4Cards() {
     if (turn <= difficulty) {
     console.log('turn',turn)
@@ -117,7 +102,6 @@ function App() {
           }
         })
         if (check === 4 ) {
-          // console.log('pizda') // ВОТ ТУТ МЕНЯТЬ ЛОГИКУ
           let test = availableCards.find(card => typeof(card) === 'object')
           console.log('test', test)
           let test2 = availableCards.indexOf(test);
@@ -125,22 +109,38 @@ function App() {
           tempArray.pop();
           tempArray.push(test2)
           console.log(tempArray[3])
-          setFourCards(tempArray.slice())
+          setFourCards(tempArray)
         }
         else {
-          setFourCards(tempArray.slice())
+          setFourCards(tempArray)
         }
         console.log('result', check)
       }
       if (turn < 5 ) {
-        setFourCards(tempArray.slice()) // создали массив четырех карт
+        setFourCards(tempArray) // создали массив четырех карт
       }
       }
   }
 
+  function generate4Cards() {
+      const tempArray = []; // временный массив
+      for (let i = 0; i < 4; i++) { 
+        let cardIndex = Math.floor(Math.random() * allCards.length); // сгенерируем индекс случайный для отбора одной из 4х
+        if (!tempArray.includes(cardIndex)) { // тут пробуем проверить на дубликат
+          tempArray.push(cardIndex) // воткнем этот индекс во временный массив 
+        }
+        else {
+          console.log('Дубликат. перегенерация')
+          i--;
+        }
+      }
+      return tempArray
+  }
+
+
   function addSelectedCard(value) { // тут удаляем из массива элемент и добавляем в другой
     const isGameOver = checkEndGame(value)
-    checkEndGame(value);
+    // checkEndGame(value);
     const copy1 = [...availableCards];
     const copy2 = [...selectedCards];
     copy2[value] = copy1[value];
@@ -155,15 +155,18 @@ function App() {
 
   function checkEndGame(value) {
     if (selectedCards[value]) {
-      setDifficulty(0)
-      setShowBlocks({...showBlocks, SetLose: 1, showCardsBlock : 0, showDifficultyBlock : 1})
-      checkRecord(turn)
+      setDifficulty(0);
+      setShowBlocks({...showBlocks, SetLose: 1, showCardsBlock : 0, showDifficultyBlock : 1});
+      checkRecord(turn);
       return true;
     }
       if (!availableCards.some(value => typeof(value) === 'object')) {
-        setDifficulty(0)
-        setShowBlocks({...showBlocks, SetWin: 1, showCardsBlock : 0, showDifficultyBlock : 1})
-        checkRecord(turn)
+        setDifficulty(0);
+        setAvailableCards([]);
+        setSelectedCards([]);
+        setFourCards([]);
+        setShowBlocks({...showBlocks, SetWin: 1, showCardsBlock : 0, showDifficultyBlock : 1});
+        checkRecord(turn);
         return true;
     }
     return false
@@ -175,7 +178,7 @@ function App() {
       {showBlocks.SetLose === 1 && <SetLose />}
       {showBlocks.SetWin === 1 && <SetWin />}
       {showBlocks.showDifficultyBlock === 1 && ( 
-      <SetDifficultyBlock showLogo={showBlocks.showLogo}  setDifficulty={setDifficulty} />)} 
+        <SetDifficultyBlock showLogo={showBlocks.showLogo}  setDifficulty={setDifficulty} />)} 
       {showBlocks.showCardsBlock === 1 && ( 
         <ShowCards key={turn} allCards={allCards} fourCards={fourCards} addSelectedCard={addSelectedCard} />
       )} 
