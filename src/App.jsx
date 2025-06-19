@@ -187,7 +187,7 @@ function App() {
         </details>
       <div className='bestScore'>Best Score: {savedRecord[0].lastRecord}</div>
 
-      <div className='debug'>
+      {/* <div className='debug'>
         <p> record: {savedRecord[0].lastRecord} </p>
         <p>Difficulty: {difficulty}  All cards size: {allCards.length} </p>
         <p>Set4Cards: {fourCards.length}, {fourCards} </p>
@@ -198,7 +198,7 @@ function App() {
           {availableCards.map((value, index) => {
           return `value ${index} : ${value.name} `
         })}
-      </div>
+      </div> */}
     </div>
   )
 }
