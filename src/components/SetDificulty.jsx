@@ -1,11 +1,11 @@
 import logo from '../assets/logo.png';
-export default function SetDificulty({dificulty, setDificulty}) {
+export default function SetDificulty({dificulty, setDificulty, showLogo}) {
         function handleChange(value) {
             return setDificulty(value)
         }
         return (
             <div className="setDificultyBlock">
-                <img src={logo} />
+                {showLogo === 1 && <img src={logo} /> }
                 <h4>Choose game dificulty:</h4>
                 <div className="flex abs">
                     <button className="button-dificulty" onClick={()=>handleChange(6)}>Easy (6)</button>

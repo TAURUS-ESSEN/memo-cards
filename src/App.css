@@ -138,3 +138,12 @@ button {
   margin-top: 1em;
   width: 300px;
 }
+
+
+.game-win, .game-lose {
+  text-align: center;
+}
+
+.game-win img, .game-lose img {
+  width: 300px;
+}

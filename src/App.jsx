@@ -18,8 +18,10 @@ function App() {
   const [showBlocks, setShowBlocks] = useState({ // показывает скрывает блоки
     showCardsBlock: 0, // по сути показать игру
     showDificultyBlock: 1, 
+    showRound:0,
     SetLose: 0,
     SetWin :0,
+    showLogo:1,
   })
   
   const firstRender = useRef(true);
@@ -74,7 +76,7 @@ function App() {
   function startGame() {
     setAvailableCards(allCards.slice()); // делаем копию карт
     setSelectedCards(Array(dificulty).fill('')) // а будущие выбранные карты заполняем пустотой. размер одинаквый везде
-    setShowBlocks({...showBlocks, showDificultyBlock: 0, SetLose:0, SetWin:0, showCardsBlock: 1}); //прячем выбор сложности
+    setShowBlocks({...showBlocks, showDificultyBlock: 0, SetLose:0, SetWin:0, showLogo:0,  showRound:1, showCardsBlock: 1}); //прячем выбор сложности
     setTurn(1);
     // choose4Cards(); // запускаем генерацию карточек
   }
@@ -169,7 +171,7 @@ function App() {
 
   function checkEndGame(value) {
     if (selectedCards[value]) {
-      alert(value, selectedCards[value]);
+      // alert(value, selectedCards[value]);
       setDificulty(0)
       setShowBlocks({...showBlocks, SetLose: 1, showCardsBlock : 0, showDificultyBlock : 1})
         checkRecord(turn)
@@ -187,11 +189,11 @@ function App() {
 
     return (
     <>
-      <h2>Round: {turn} / {dificulty}</h2>
+      {showBlocks.showRound === 1 && <h2>Round: {turn} / {dificulty}</h2>}
       {showBlocks.SetLose === 1 && <SetLose />}
       {showBlocks.SetWin === 1 && <SetWin />}
       {showBlocks.showDificultyBlock === 1 && ( // покажем только вначале игры кнопки выбора сложности компонент
-      <SetDificulty dificulty={dificulty} setDificulty={setDificulty} />)} 
+      <SetDificulty showLogo={showBlocks.showLogo}  setDificulty={setDificulty} />)} 
       {showBlocks.showCardsBlock === 1 && ( // компонент вывода карт
         <ShowCards key={turn} allCards={allCards} fourCards={fourCards} addSelectedCard={addSelectedCard} />
       )} 

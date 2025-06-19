@@ -1,7 +1,8 @@
+import lose from '../assets/gameOver.webp';
 export default function SetLose () {
     return (
         <div className="game-lose">
-            Ты проиграл
+            <img src={lose} />
         </div>
     )
 }
