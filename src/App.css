@@ -158,3 +158,21 @@ button {
 .game-win img, .game-lose img {
   width: 300px;
 }
+
+.card.animate {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.3); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.card.disappear {
+  animation: disappear 0.4s ease forwards;
+}
+
+@keyframes disappear {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.3); }
+}

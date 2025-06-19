@@ -1,15 +1,30 @@
-export default function ShowCards({allCards, fourCards, addSelectedCard}) {
+import { useEffect, useState } from 'react';
+
+export default function ShowCards({ allCards, fourCards, setFourCards, addSelectedCard }) {
+    const [animationKey, setAnimationKey] = useState(0);
+    const [disappearing, setDisappearing] = useState(false);
+
+    useEffect(() => {
+        setAnimationKey(prev => prev + 1);
+        setDisappearing(false); // сброс исчезновения при новых картах
+    }, [fourCards]);
+
+    function handleClick(value) {
+        setDisappearing(true); // запустить анимацию исчезновения
+        setTimeout(() => {
+            addSelectedCard(value);
+            setFourCards([]);
+        }, 400); // подстроено под CSS-анимацию
+    }
+
     return (
         <div className="all-cards">
-            {fourCards.map((value, index) => {
-            return (
-                
-                    <button className='card' key={index} onClick={() => addSelectedCard(value)}>
-                        <img src={allCards[value].img} alt={allCards[value].name}/> 
-                        <span className="card-name">{allCards[value].name}</span>  
-                    </button>
-            )
-        })}
+            {fourCards.map((value, index) => (
+            <button className={`card animate ${disappearing ? 'disappear' : ''}`} key={`${animationKey}-${index}`} onClick={() => handleClick(value)}>
+                <img src={allCards[value].img} alt={allCards[value].name} />
+                <span className="card-name">{allCards[value].name}</span>
+            </button>
+            ))}
         </div>
-    )
+    );
 }

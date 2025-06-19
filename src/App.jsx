@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react'
-import './App.css'
+import { useEffect, useState } from 'react';
+import './App.css';
 import SetDifficultyBlock from './components/SetDifficultyBlock.jsx';
 import ShowCards from './components/ShowCards.jsx';
-import SetLose from './components/SetLose.jsx'
-import SetWin from './components/SetWin.jsx'
+import SetLose from './components/SetLose.jsx';
+import SetWin from './components/SetWin.jsx';
 
 function App() {
   const [difficulty, setDifficulty] = useState(0);
@@ -60,9 +60,9 @@ function App() {
 
 
   function startGame(tempArray) {
-    setAvailableCards(tempArray); // делаем копию карт
-    setSelectedCards(Array(difficulty).fill('')) // а будущие выбранные карты заполняем пустотой. размер одинаквый везде
-    setShowBlocks({...showBlocks, showDifficultyBlock: 0, SetLose:0, SetWin:0, showLogo:0,  showRound:1, showCardsBlock: 1}); //прячем выбор сложности
+    setAvailableCards(tempArray);
+    setSelectedCards(Array(difficulty).fill(''))
+    setShowBlocks({...showBlocks, showDifficultyBlock: 0, SetLose:0, SetWin:0, showLogo:0,  showRound:1, showCardsBlock: 1});
     setTurn(1);
   }
   
@@ -87,10 +87,9 @@ function App() {
 
   function choose4Cards() {
     if (turn <= difficulty) {
-    console.log('turn',turn)
-    let tempArray = generate4Cards();
-
-    if (turn > 4 ) { // если массив отобранных карт больше 4
+      console.log('turn',turn)
+      let tempArray = generate4Cards();
+      if (turn > 4 ) { // если массив отобранных карт больше 4
         console.log("-----------------------")
         let check = 0;
         tempArray.forEach((value, index )=> {
@@ -101,44 +100,42 @@ function App() {
             check++
           }
         })
-        if (check === 4 ) {
-          let test = availableCards.find(card => typeof(card) === 'object')
-          console.log('test', test)
-          let test2 = availableCards.indexOf(test);
-          console.log('test index', test2)
-          tempArray.pop();
-          tempArray.push(test2)
-          console.log(tempArray[3])
-          setFourCards(tempArray)
-        }
-        else {
-          setFourCards(tempArray)
-        }
-        console.log('result', check)
+      if (check === 4 ) {
+        let test = availableCards.find(card => typeof(card) === 'object')
+        console.log('test', test)
+        let test2 = availableCards.indexOf(test);
+        console.log('test index', test2)
+        tempArray.pop();
+        tempArray.push(test2)
+        console.log(tempArray[3])
+        setFourCards(tempArray)
+      } else {
+        setFourCards(tempArray)
       }
-      if (turn < 5 ) {
-        setFourCards(tempArray) // создали массив четырех карт
-      }
-      }
+      console.log('result', check)
+    }
+    if (turn < 5 ) {
+      setFourCards(tempArray) // создали массив четырех карт
+    }
+    }
   }
 
   function generate4Cards() {
-      const tempArray = []; // временный массив
-      for (let i = 0; i < 4; i++) { 
-        let cardIndex = Math.floor(Math.random() * allCards.length); // сгенерируем индекс случайный для отбора одной из 4х
-        if (!tempArray.includes(cardIndex)) { // тут пробуем проверить на дубликат
-          tempArray.push(cardIndex) // воткнем этот индекс во временный массив 
-        }
-        else {
-          console.log('Дубликат. перегенерация')
-          i--;
-        }
+    const tempArray = []; 
+    for (let i = 0; i < 4; i++) { 
+      let cardIndex = Math.floor(Math.random() * allCards.length);
+      if (!tempArray.includes(cardIndex)) {
+        tempArray.push(cardIndex); 
       }
-      return tempArray
+      else {
+        console.log('Дубликат. перегенерация')
+        i--;
+      }
+    }
+    return tempArray
   }
 
-
-  function addSelectedCard(value) { // тут удаляем из массива элемент и добавляем в другой
+  function addSelectedCard(value) { 
     const isGameOver = checkEndGame(value)
     // checkEndGame(value);
     const copy1 = [...availableCards];
@@ -160,14 +157,14 @@ function App() {
       checkRecord(turn);
       return true;
     }
-      if (!availableCards.some(value => typeof(value) === 'object')) {
-        setDifficulty(0);
-        setAvailableCards([]);
-        setSelectedCards([]);
-        setFourCards([]);
-        setShowBlocks({...showBlocks, SetWin: 1, showCardsBlock : 0, showDifficultyBlock : 1});
-        checkRecord(turn);
-        return true;
+    if (!availableCards.some(value => typeof(value) === 'object')) {
+      setDifficulty(0);
+      setAvailableCards([]);
+      setSelectedCards([]);
+      setFourCards([]);
+      setShowBlocks({...showBlocks, SetWin: 1, showCardsBlock : 0, showDifficultyBlock : 1});
+      checkRecord(turn);
+      return true;
     }
     return false
   }
@@ -180,7 +177,7 @@ function App() {
       {showBlocks.showDifficultyBlock === 1 && ( 
         <SetDifficultyBlock showLogo={showBlocks.showLogo}  setDifficulty={setDifficulty} />)} 
       {showBlocks.showCardsBlock === 1 && ( 
-        <ShowCards key={turn} allCards={allCards} fourCards={fourCards} addSelectedCard={addSelectedCard} />
+        <ShowCards key={turn} allCards={allCards} fourCards={fourCards} setFourCards = {setFourCards} addSelectedCard={addSelectedCard} />
       )} 
 
       <details className="gameRules">
@@ -191,16 +188,16 @@ function App() {
       <div className='bestScore'>Best Score: {savedRecord[0].lastRecord}</div>
 
       <div className='debug'>
-      <p> record: {savedRecord[0].lastRecord} </p>
-      <p>Difficulty: {difficulty}  All cards size: {allCards.length} </p>
-      <p>Set4Cards: {fourCards.length}, {fourCards} </p>
-      {selectedCards.map((value, index) => {
-        return `value ${index} : ${value.name} `
-      })}
-      <p>Available:</p>
-        {availableCards.map((value, index) => {
-        return `value ${index} : ${value.name} `
-      })}
+        <p> record: {savedRecord[0].lastRecord} </p>
+        <p>Difficulty: {difficulty}  All cards size: {allCards.length} </p>
+        <p>Set4Cards: {fourCards.length}, {fourCards} </p>
+        {selectedCards.map((value, index) => {
+          return `value ${index} : ${value.name} `
+        })}
+        <p>Available:</p>
+          {availableCards.map((value, index) => {
+          return `value ${index} : ${value.name} `
+        })}
       </div>
     </div>
   )
