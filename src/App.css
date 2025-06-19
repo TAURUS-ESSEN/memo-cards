@@ -191,8 +191,8 @@ button {
 
   .all-cards { 
     flex-wrap: wrap;
-    margin: 0.5em;
-    gap: 1em;
+    margin: 0.2em;
+    gap: 2em;
   }
 
   .card {
