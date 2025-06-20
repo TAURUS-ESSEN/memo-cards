@@ -6,15 +6,15 @@ export default function ShowCards({ allCards, fourCards, setFourCards, addSelect
 
     useEffect(() => {
         setAnimationKey(prev => prev + 1);
-        setDisappearing(false); // сброс исчезновения при новых картах
+        setDisappearing(false);  
     }, [fourCards]);
 
     function handleClick(value) {
-        setDisappearing(true); // запустить анимацию исчезновения
+        setDisappearing(true); 
         setTimeout(() => {
             addSelectedCard(value);
             setFourCards([]);
-        }, 400); // подстроено под CSS-анимацию
+        }, 400);  
     }
 
     return (
